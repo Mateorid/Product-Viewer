@@ -20,6 +20,7 @@ dependencies:
   http: ^1.2.2
   stream_transform: ^2.1.0
   internet_connection_checker: ^2.0.0
+  transparent_image: ^2.0.1
 
 dev_dependencies:
   flutter_test:

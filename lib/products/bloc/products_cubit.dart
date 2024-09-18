@@ -6,19 +6,19 @@ import 'package:product_viewer/products/repository/product_repository.dart';
 
 part 'products_state.dart';
 
-class ProductCubit extends Cubit<ProductsState> {
+class ProductsCubit extends Cubit<ProductsState> {
   final ProductRepository _productRepository;
-  ProductCubit({required ProductRepository productRepository})
+  ProductsCubit({required ProductRepository productRepository})
       : _productRepository = productRepository,
         super(ProductsInitial());
 
   Future<void> getProducts() async {
     try {
-      emit(ProductsLoading());
+      // emit(ProductsLoading()); //todo
       final hasConnected = await InternetConnectionChecker().hasConnection;
       if (hasConnected) {
         final fetchedProducts = await _productRepository.getAllProducts();
-        await _productRepository.cacheLoadedProducts(products: fetchedProducts);
+        // await _productRepository.cacheLoadedProducts(products: fetchedProducts); //TODO implement
         // final cachedProducts = await _productRepository.getCachedProducts(); //todo delete?
         emit(ProductsLoaded(response: fetchedProducts));
       } else {
