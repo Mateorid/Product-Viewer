@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_viewer/common/shared_ui_constants.dart';
 import 'package:product_viewer/products/bloc/products_cubit.dart';
 import 'package:product_viewer/products/models/product.dart';
+import 'package:product_viewer/products/ui/product_detail_page/product_detail_page.dart';
 import 'package:product_viewer/products/ui/product_list_page/product_tile.dart';
 
 class ProductList extends StatelessWidget {
@@ -23,10 +24,20 @@ class ProductList extends StatelessWidget {
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
           itemCount: products.length,
-          itemBuilder: (context, index) => ProductTile(
-            product: products[index],
-            onTap: () => print(index), //todo
-          ),
+          itemBuilder: (context, index) {
+            final product = products[index];
+            return ProductTile(
+              product: product,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailPage(product: product),
+                  ),
+                );
+              },
+            );
+          },
           separatorBuilder: (_, __) =>
               const SizedBox.square(dimension: kNormalGap),
         ),

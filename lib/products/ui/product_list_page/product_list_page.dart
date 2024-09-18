@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_viewer/products/bloc/products_cubit.dart';
+import 'package:product_viewer/products/ui/common/page_template.dart';
 import 'package:product_viewer/products/ui/product_list_page/product_list.dart';
 
 class ProductListPage extends StatefulWidget {
@@ -19,23 +20,21 @@ class _ProductListPageState extends State<ProductListPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Todo wrap with page template
-    return Scaffold(
-      appBar: AppBar(title: Text('Product Viewer'), centerTitle: true),
+    return PageTemplate(
+      pageTitle: 'Product Viewer',
       body: BlocBuilder<ProductsCubit, ProductsState>(
         builder: (context, state) {
           switch (state) {
-            case ProductsLoaded loaded:
-              return ProductList(products: loaded.response);
-            case ProductsError e:
-              // TODO: Display snackbar or custom page?
-              return Center(child: Text(e.error));
+            case ProductsLoaded loadedState:
+              return ProductList(products: loadedState.response);
+            case ProductsError errorState:
+              // TODO: Display snack-bar and/or custom page?
+              return Center(child: Text(errorState.error));
             case ProductsInitial():
               return const Center(child: CircularProgressIndicator());
           }
         },
       ),
     );
-    // TODO GRID! - proste to co se rozlozi tak at se toho tam vleze co nejvic
   }
 }

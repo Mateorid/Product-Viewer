@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:product_viewer/products/models/product_rating.dart';
 
 part 'product.g.dart';
 
@@ -13,9 +14,8 @@ class Product extends Equatable {
   @JsonKey(name: 'image')
   final String imageUrl;
   final String category;
-  // final ProductRating rating;
+  final ProductRating rating;
 
-  // TODO remove or implement rating
   const Product({
     required this.id,
     required this.price,
@@ -23,7 +23,7 @@ class Product extends Equatable {
     required this.description,
     required this.imageUrl,
     required this.category,
-    // required this.rating,
+    required this.rating,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) =>
@@ -33,5 +33,5 @@ class Product extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, price, title, description, imageUrl, category];
+      [id, price, title, description, imageUrl, category, rating];
 }

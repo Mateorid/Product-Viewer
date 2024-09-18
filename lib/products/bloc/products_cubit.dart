@@ -14,7 +14,6 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   Future<void> getProducts() async {
     try {
-      // emit(ProductsLoading()); //todo
       final hasConnected = await InternetConnectionChecker().hasConnection;
       if (hasConnected) {
         final fetchedProducts = await _productRepository.getAllProducts();
