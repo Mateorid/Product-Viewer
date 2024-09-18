@@ -8,8 +8,7 @@ class AppRoot extends StatelessWidget {
     return MaterialApp(
       title: 'Product Viewer',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
-        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const Placeholder(),
