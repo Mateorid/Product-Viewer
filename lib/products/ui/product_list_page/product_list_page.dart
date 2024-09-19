@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:product_viewer/products/bloc/products_cubit.dart';
+import 'package:product_viewer/products/bloc/product_bloc.dart';
 import 'package:product_viewer/products/ui/common/page_template.dart';
 import 'package:product_viewer/products/ui/product_list_page/connection_error_display.dart';
 import 'package:product_viewer/products/ui/product_list_page/product_list.dart';
@@ -14,25 +14,21 @@ class ProductListPage extends StatefulWidget {
 
 class _ProductListPageState extends State<ProductListPage> {
   @override
-  void initState() {
-    super.initState();
-    context.read<ProductsCubit>().getProducts();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return PageTemplate(
       pageTitle: 'Product Viewer',
-      body: BlocBuilder<ProductsCubit, ProductsState>(
+      body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
-          switch (state) {
-            case ProductsLoaded loadedState:
-              return ProductList(products: loadedState.response);
-            case ProductsError():
-              // TODO: Display snack-bar and/or custom page?
-              return Center(child: ConnectionErrorDisplay());
-            case ProductsInitial():
+          switch (state.status) {
+            case ProductsStatus.initial:
               return const Center(child: CircularProgressIndicator());
+            case ProductsStatus.success:
+              return ProductList(
+                products: state.products,
+                hasReachedMax: state.hasReachedMax,
+              );
+            case ProductsStatus.failure:
+              return Center(child: ConnectionErrorDisplay());
           }
         },
       ),

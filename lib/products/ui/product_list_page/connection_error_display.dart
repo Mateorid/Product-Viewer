@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:product_viewer/products/bloc/products_cubit.dart';
+import 'package:product_viewer/products/bloc/product_bloc.dart';
 import 'package:product_viewer/util/shared_constants.dart';
 
 class ConnectionErrorDisplay extends StatelessWidget {
@@ -20,7 +20,8 @@ class ConnectionErrorDisplay extends StatelessWidget {
         ),
         const SizedBox.square(dimension: kNormalGap),
         ElevatedButton(
-          onPressed: context.read<ProductsCubit>().getProducts,
+          onPressed: () =>
+              context.read<ProductBloc>().add(RetryProductFetched()),
           child: Text('Retry'),
         )
       ],
