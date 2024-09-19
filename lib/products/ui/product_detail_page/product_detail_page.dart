@@ -18,15 +18,15 @@ class ProductDetailPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(kSmallGap),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(product.title, style: textTheme.headlineLarge),
               const SizedBox.square(dimension: kSmallGap),
               _buildStarRating(textTheme),
+              const SizedBox.square(dimension: kSmallGap),
+              Text('\$${product.price}', style: textTheme.headlineSmall),
               const SizedBox.square(dimension: kNormalGap),
-              SizedBox.square(
-                dimension: 250,
-                child: CachedProductImage(imageUrl: product.imageUrl),
-              ),
+              _buildProductImage(),
               const SizedBox.square(dimension: kNormalGap),
               Text(product.description, style: textTheme.bodyLarge),
             ],
@@ -43,6 +43,15 @@ class ProductDetailPage extends StatelessWidget {
         const SizedBox.square(dimension: kSmallGap),
         Text('${product.rating.count}x', style: textTheme.bodyMedium)
       ],
+    );
+  }
+
+  Widget _buildProductImage() {
+    return Center(
+      child: SizedBox.square(
+        dimension: 250,
+        child: CachedProductImage(imageUrl: product.imageUrl),
+      ),
     );
   }
 }
