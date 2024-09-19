@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:product_viewer/common/shared_ui_constants.dart';
 import 'package:product_viewer/products/bloc/products_cubit.dart';
 import 'package:product_viewer/products/models/product.dart';
 import 'package:product_viewer/products/ui/product_detail_page/product_detail_page.dart';
 import 'package:product_viewer/products/ui/product_list_page/product_tile.dart';
+import 'package:product_viewer/util/shared_constants.dart';
 
 class ProductList extends StatelessWidget {
   final List<Product> products;

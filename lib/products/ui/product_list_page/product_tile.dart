@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:product_viewer/common/shared_ui_constants.dart';
 import 'package:product_viewer/products/models/product.dart';
+import 'package:product_viewer/util/shared_constants.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ProductTile extends StatelessWidget {

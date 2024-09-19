@@ -9,3 +9,5 @@ const double kLargeGap = 32.0;
 
 /// Default Material 3 card radius - 12.0
 const kM3CardRadius = 12.0;
+
+const kProductKey = 'products';

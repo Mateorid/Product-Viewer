@@ -14,14 +14,22 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   Future<void> getProducts() async {
     try {
-      final hasConnected = await InternetConnectionChecker().hasConnection;
-      if (hasConnected) {
+      emit(ProductsInitial());
+      final hasConnection = await InternetConnectionChecker().hasConnection;
+      if (hasConnection) {
+        // Fetch and cache products
         final fetchedProducts = await _productRepository.getAllProducts();
-        // await _productRepository.cacheLoadedProducts(products: fetchedProducts); //TODO implement
-        // final cachedProducts = await _productRepository.getCachedProducts(); //todo delete?
+        await _productRepository.cacheLoadedProducts(products: fetchedProducts);
         emit(ProductsLoaded(response: fetchedProducts));
       } else {
+        // Check for cached products
         final cachedProducts = await _productRepository.getCachedProducts();
+        // No internet connection and nothing cached
+        if (cachedProducts.isEmpty) {
+          emit(ProductsError(error: "No internet connection"));
+          return;
+        }
+        // Emit cached products
         emit(ProductsLoaded(response: cachedProducts));
       }
     } catch (e) {

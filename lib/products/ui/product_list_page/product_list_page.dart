@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_viewer/products/bloc/products_cubit.dart';
 import 'package:product_viewer/products/ui/common/page_template.dart';
+import 'package:product_viewer/products/ui/product_list_page/connection_error_display.dart';
 import 'package:product_viewer/products/ui/product_list_page/product_list.dart';
 
 class ProductListPage extends StatefulWidget {
@@ -27,9 +28,9 @@ class _ProductListPageState extends State<ProductListPage> {
           switch (state) {
             case ProductsLoaded loadedState:
               return ProductList(products: loadedState.response);
-            case ProductsError errorState:
+            case ProductsError():
               // TODO: Display snack-bar and/or custom page?
-              return Center(child: Text(errorState.error));
+              return Center(child: ConnectionErrorDisplay());
             case ProductsInitial():
               return const Center(child: CircularProgressIndicator());
           }
