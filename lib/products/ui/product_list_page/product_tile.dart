@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_viewer/products/models/product.dart';
+import 'package:product_viewer/products/ui/common/cached_product_image.dart';
 import 'package:product_viewer/util/shared_constants.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
@@ -21,10 +21,7 @@ class ProductTile extends StatelessWidget {
             children: [
               SizedBox.square(
                 dimension: 100,
-                child: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image: product.imageUrl,
-                ),
+                child: CachedProductImage(imageUrl: product.imageUrl),
               ),
               const SizedBox.square(dimension: kSmallGap),
               Expanded(
@@ -38,10 +35,12 @@ class ProductTile extends StatelessWidget {
                     Text(
                       '\$${product.price}',
                       style: const TextStyle(
+                        //todo clean
                         // fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
                       ),
                     ),
+                    //todo clean
                     // Text(
                     //   '${product.description}',
                     //   maxLines: 3,
