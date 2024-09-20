@@ -4,9 +4,9 @@ import 'package:product_viewer/products/ui/common/cached_product_image.dart';
 import 'package:product_viewer/util/shared_constants.dart';
 
 class ProductTile extends StatelessWidget {
+  const ProductTile({required this.product, required this.onTap, super.key});
   final Product product;
   final void Function() onTap;
-  const ProductTile({super.key, required this.product, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,26 +29,13 @@ class ProductTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${product.title}',
+                      product.title,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '\$${product.price}',
-                      style: const TextStyle(
-                        //todo clean
-                        // fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                      ),
+                      style: const TextStyle(fontStyle: FontStyle.italic),
                     ),
-                    //todo clean
-                    // Text(
-                    //   '${product.description}',
-                    //   maxLines: 3,
-                    //   overflow: TextOverflow.ellipsis,
-                    //   style: const TextStyle(
-                    //     fontStyle: FontStyle.italic,
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

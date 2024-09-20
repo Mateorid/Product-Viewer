@@ -6,15 +6,14 @@ import 'package:product_viewer/products/models/product.dart';
 import 'package:product_viewer/products/repository/product_repository.dart';
 
 class HttpProductRepository implements ProductRepository {
-  static const _urlAuthority = 'fakestoreapi.com';
-  static const _urlProductsPath = 'products';
-  final http.Client _client;
-  final Box<Product> _productBox;
-
   HttpProductRepository(
       {required http.Client client, required Box<Product> productBox})
       : _client = client,
         _productBox = productBox;
+  static const _urlAuthority = 'fakestoreapi.com';
+  static const _urlProductsPath = 'products';
+  final http.Client _client;
+  final Box<Product> _productBox;
 
   @override
   Future<List<Product>> getProducts({int limit = 0}) async {
@@ -25,7 +24,9 @@ class HttpProductRepository implements ProductRepository {
       throw Exception("Couldn't fetch data!");
     }
     final responseBody = jsonDecode(response.body) as List;
-    return responseBody.map((product) => Product.fromJson(product)).toList();
+    return responseBody
+        .map((product) => Product.fromJson(product as Map<String, dynamic>))
+        .toList();
   }
 
   @override

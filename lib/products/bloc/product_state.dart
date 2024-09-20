@@ -3,12 +3,6 @@ part of 'product_bloc.dart';
 enum ProductsStatus { initial, success, failure }
 
 final class ProductState extends Equatable {
-  final ProductsStatus status;
-  final List<Product> products;
-  final int productFetchLimit;
-  final bool hasReachedMax;
-  final bool loadedFromCache;
-
   const ProductState({
     this.status = ProductsStatus.initial,
     this.products = const <Product>[],
@@ -16,6 +10,12 @@ final class ProductState extends Equatable {
     this.hasReachedMax = false,
     this.loadedFromCache = false,
   });
+
+  final ProductsStatus status;
+  final List<Product> products;
+  final int productFetchLimit;
+  final bool hasReachedMax;
+  final bool loadedFromCache;
 
   ProductState copyWith({
     ProductsStatus? status,

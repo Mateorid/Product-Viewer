@@ -17,7 +17,7 @@ class AppRoot extends StatelessWidget {
         lazy: false,
         create: (_) => ProductBloc(repository: getIt<ProductRepository>())
           ..add(ProductFetched()),
-        child: SafeArea(child: const ProductListPage()),
+        child: const SafeArea(child: ProductListPage()),
       ),
     );
   }

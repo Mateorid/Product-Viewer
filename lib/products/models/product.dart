@@ -9,6 +9,18 @@ part 'product.g.dart';
 @JsonSerializable()
 @HiveType(typeId: 1)
 class Product extends Equatable {
+  const Product({
+    required this.id,
+    required this.price,
+    required this.title,
+    required this.description,
+    required this.imageUrl,
+    required this.category,
+    required this.rating,
+  });
+
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
   @HiveField(0)
   final int id;
   @HiveField(1)
@@ -24,19 +36,6 @@ class Product extends Equatable {
   final String category;
   @HiveField(6)
   final ProductRating rating;
-
-  const Product({
-    required this.id,
-    required this.price,
-    required this.title,
-    required this.description,
-    required this.imageUrl,
-    required this.category,
-    required this.rating,
-  });
-
-  factory Product.fromJson(Map<String, dynamic> json) =>
-      _$ProductFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 

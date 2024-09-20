@@ -7,14 +7,13 @@ import 'package:product_viewer/products/ui/product_list_page/product_tile.dart';
 import 'package:product_viewer/util/shared_constants.dart';
 
 class ProductList extends StatefulWidget {
-  final List<Product> products;
-  final bool allProductsLoaded;
-
   const ProductList({
-    super.key,
     required this.products,
     required this.allProductsLoaded,
+    super.key,
   });
+  final List<Product> products;
+  final bool allProductsLoaded;
 
   @override
   State<ProductList> createState() => _ProductListState();

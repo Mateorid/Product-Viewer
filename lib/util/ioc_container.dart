@@ -8,11 +8,12 @@ import 'package:product_viewer/util/shared_constants.dart';
 final getIt = GetIt.instance;
 
 void iocSetup() {
-  getIt.registerSingleton<http.Client>(http.Client());
-  getIt.registerSingleton<ProductRepository>(
-    HttpProductRepository(
-      client: getIt<http.Client>(),
-      productBox: Hive.box(kProductKey),
-    ),
-  );
+  getIt
+    ..registerSingleton<http.Client>(http.Client())
+    ..registerSingleton<ProductRepository>(
+      HttpProductRepository(
+        client: getIt<http.Client>(),
+        productBox: Hive.box(kProductKey),
+      ),
+    );
 }

@@ -12,7 +12,8 @@ class ConnectionErrorDisplay extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.signal_wifi_connected_no_internet_4_outlined, size: 150),
+        const Icon(Icons.signal_wifi_connected_no_internet_4_outlined,
+            size: 150),
         const SizedBox.square(dimension: kNormalGap),
         Text(
           "Couldn't connect to server",
@@ -22,7 +23,7 @@ class ConnectionErrorDisplay extends StatelessWidget {
         ElevatedButton(
           onPressed: () =>
               context.read<ProductBloc>().add(RetryProductFetched()),
-          child: Text('Retry'),
+          child: const Text('Retry'),
         )
       ],
     );

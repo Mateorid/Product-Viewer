@@ -6,8 +6,8 @@ import 'package:product_viewer/products/ui/common/page_template.dart';
 import 'package:product_viewer/util/shared_constants.dart';
 
 class ProductDetailPage extends StatelessWidget {
+  const ProductDetailPage({required this.product, super.key});
   final Product product;
-  const ProductDetailPage({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {

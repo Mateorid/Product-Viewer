@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PageTemplate extends StatelessWidget {
+  const PageTemplate({required this.pageTitle, required this.body, super.key});
   final String pageTitle;
   final Widget body;
-
-  const PageTemplate({super.key, required this.pageTitle, required this.body});
 
   @override
   Widget build(BuildContext context) {

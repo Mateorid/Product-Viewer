@@ -19,14 +19,15 @@ class ProductListPage extends StatelessWidget {
             case ProductsStatus.initial:
               return const Center(child: CircularProgressIndicator());
             case ProductsStatus.success:
-              if (state.loadedFromCache && context.mounted)
+              if (state.loadedFromCache && context.mounted) {
                 _showCacheWarningToast(context);
+              }
               return ProductList(
                 products: state.products,
                 allProductsLoaded: state.hasReachedMax,
               );
             case ProductsStatus.failure:
-              return Center(child: ConnectionErrorDisplay());
+              return const Center(child: ConnectionErrorDisplay());
           }
         },
       ),
@@ -39,8 +40,8 @@ class ProductListPage extends StatelessWidget {
         context: context,
         type: ToastificationType.warning,
         style: ToastificationStyle.flat,
-        title: Text("No internet connection"),
-        description: Text(
+        title: const Text("No internet connection"),
+        description: const Text(
             "Results were loaded from cache.\nSome results might be missing"),
         alignment: Alignment.bottomCenter,
         autoCloseDuration: const Duration(seconds: 3),

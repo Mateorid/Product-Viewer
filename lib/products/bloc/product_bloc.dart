@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:product_viewer/products/models/product.dart';
 import 'package:product_viewer/products/repository/product_repository.dart';
-import 'package:stream_transform/stream_transform.dart';
+import 'package:product_viewer/util/helper_functions.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
@@ -17,17 +16,7 @@ part 'product_state.dart';
 const _productLimitStep = 10;
 const _throttleDuration = Duration(milliseconds: 300);
 
-/// Throttle events by given duration
-// TODO move to different file
-EventTransformer<E> throttleDroppable<E>(Duration duration) {
-  return (events, mapper) {
-    return droppable<E>().call(events.throttle(duration), mapper);
-  };
-}
-
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  final ProductRepository _productRepository;
-
   ProductBloc({required ProductRepository repository})
       : _productRepository = repository,
         super(ProductInitial()) {
@@ -45,6 +34,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       transformer: throttleDroppable(_throttleDuration),
     );
   }
+  final ProductRepository _productRepository;
 
   /// Handle ProductFetched event
   Future<void> _onPostFetched(Emitter<ProductState> emit) async {
