@@ -8,12 +8,12 @@ import 'package:product_viewer/util/shared_constants.dart';
 
 class ProductList extends StatefulWidget {
   final List<Product> products;
-  final bool hasReachedMax;
+  final bool allProductsLoaded;
 
   const ProductList({
     super.key,
     required this.products,
-    required this.hasReachedMax,
+    required this.allProductsLoaded,
   });
 
   @override
@@ -35,6 +35,7 @@ class _ProductListState extends State<ProductList> {
       return const Center(child: Text('No products to display'));
     }
 
+    /// Render visible items and depending on [allProductsLoaded] and current scroll position render a loading indicator as the last item
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kSmallGap),
       child: RefreshIndicator(
@@ -43,7 +44,7 @@ class _ProductListState extends State<ProductList> {
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
           controller: _scrollController,
-          itemCount: widget.hasReachedMax
+          itemCount: widget.allProductsLoaded
               ? widget.products.length
               : widget.products.length + 1,
           itemBuilder: (context, index) {
@@ -92,7 +93,6 @@ class _ProductListState extends State<ProductList> {
 
   /// Request more data when we reach the bottom of all loaded
   void _onScroll() {
-    print('bottom: $_isBottom');
     if (_isBottom) context.read<ProductBloc>().add(ProductFetched());
   }
 

@@ -25,6 +25,7 @@ dependencies:
   hive_flutter: ^1.1.0
   cached_network_image: ^3.4.1
   get_it: ^7.2.0
+  toastification: ^2.2.0
 
 dev_dependencies:
   flutter_test:
