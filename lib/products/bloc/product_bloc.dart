@@ -11,14 +11,16 @@ import 'package:product_viewer/util/helper_functions.dart';
 part 'product_event.dart';
 part 'product_state.dart';
 
-/// Limit the amount of fetched products to prevent loading the whole list
-/// Only 10 since the demo API only have 20 items
-const _productLimitStep = 10;
-const _throttleDuration = Duration(milliseconds: 300);
-
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  ProductBloc({required ProductRepository repository})
-      : _productRepository = repository,
+  ProductBloc({
+    required int productLimitStep,
+    required Duration throttleDuration,
+    required InternetConnectionChecker internetConnectionChecker,
+    required ProductRepository repository,
+  })  : _throttleDuration = throttleDuration,
+        _productLimitStep = productLimitStep,
+        _productRepository = repository,
+        _internetConnectionChecker = internetConnectionChecker,
         super(ProductInitial()) {
     /// Throttle events so they don't overload our API
     on<ProductFetched>(
@@ -35,11 +37,17 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     );
   }
   final ProductRepository _productRepository;
+  final InternetConnectionChecker _internetConnectionChecker;
+
+  /// Limit the amount of fetched products to prevent loading the whole list
+  /// Only 10 since the demo API only have 20 items
+  final int _productLimitStep;
+  final Duration _throttleDuration;
 
   /// Handle ProductFetched event
   Future<void> _onPostFetched(Emitter<ProductState> emit) async {
     try {
-      final hasConnection = await InternetConnectionChecker().hasConnection;
+      final hasConnection = await _internetConnectionChecker.hasConnection;
 
       /// If we have internet connection -> fetch anc cache new data
       if (hasConnection) {

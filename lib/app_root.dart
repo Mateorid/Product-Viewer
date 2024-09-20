@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:product_viewer/products/bloc/product_bloc.dart';
 import 'package:product_viewer/products/repository/product_repository.dart';
 import 'package:product_viewer/products/ui/product_list_page/product_list_page.dart';
@@ -15,8 +16,12 @@ class AppRoot extends StatelessWidget {
       theme: _buildThemeData(),
       home: BlocProvider(
         lazy: false,
-        create: (_) => ProductBloc(repository: getIt<ProductRepository>())
-          ..add(ProductFetched()),
+        create: (_) => ProductBloc(
+          repository: getIt<ProductRepository>(),
+          internetConnectionChecker: InternetConnectionChecker(),
+          productLimitStep: 10,
+          throttleDuration: const Duration(milliseconds: 300),
+        )..add(ProductFetched()),
         child: const SafeArea(child: ProductListPage()),
       ),
     );
